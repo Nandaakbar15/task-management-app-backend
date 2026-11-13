@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Status {
+    completed
+    pending
+    rejected
+}
+
+model User {
+    id Int @id @default(autoincrement())
+    username String
+    email String @unique
+    password String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Task {
+    id Int @id @default(autoincrement())
+    title String @db.VarChar(155)
+    description String @db.Text()
+    category String @db.VarChar(155)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}

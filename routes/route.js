@@ -13,6 +13,9 @@ const {
   deleteTasks,
 } = require("../controller/taskController");
 
+// middleware
+const { authMiddleware } = require("../middleware/middleware");
+
 router.get("/", (req, res) => {
   return res.status(200).json({
     statusCode: 200,
@@ -21,14 +24,14 @@ router.get("/", (req, res) => {
 });
 
 // routes login and logout
-router.post("/api/login", login);
-router.post("/api/logout", logout);
+router.post("/api/auth/login", login);
+router.post("/api/auth/logout", logout);
 
 // tasks routes
-router.get("/api/tasks", getAllTaskData);
-router.get("/api/tasks/:id", getTasksById);
-router.post("/api/createTasks", createTasks);
-router.put("/api/updateTask/:id", updateTasks);
-router.delete("/api/deleteTasks/:id", deleteTasks);
+router.get("/api/tasks", authMiddleware, getAllTaskData);
+router.get("/api/tasks/:id", authMiddleware, getTasksById);
+router.post("/api/createTasks", authMiddleware, createTasks);
+router.put("/api/updateTask/:id", authMiddleware, updateTasks);
+router.delete("/api/deleteTasks/:id", authMiddleware, deleteTasks);
 
 module.exports = router;

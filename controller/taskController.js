@@ -66,6 +66,27 @@ exports.createTasks = async (req, res) => {
   try {
     const { title, description, category, status } = req.body;
 
+    if (!title) {
+      return res.status(400).json({
+        statusCode: 400,
+        message: "Title is required!",
+      });
+    }
+
+    if (!description) {
+      return res.status(400).json({
+        statusCode: 400,
+        message: "Description is required!",
+      });
+    }
+
+    if (!category) {
+      return res.status(400).json({
+        statusCode: 400,
+        message: "Category is required!",
+      });
+    }
+
     const tasksData = {
       title,
       description,
@@ -106,6 +127,27 @@ exports.updateTasks = async (req, res) => {
       return res.status(400).json({
         statusCode: 400,
         message: `The data with ID ${parsedId} is not found!`,
+      });
+    }
+
+    if (!title) {
+      return res.status(400).json({
+        statusCode: 400,
+        message: "Title is required!",
+      });
+    }
+
+    if (!description) {
+      return res.status(400).json({
+        statusCode: 400,
+        message: "Description is required!",
+      });
+    }
+
+    if (!category) {
+      return res.status(400).json({
+        statusCode: 400,
+        message: "Category is required!",
       });
     }
 
